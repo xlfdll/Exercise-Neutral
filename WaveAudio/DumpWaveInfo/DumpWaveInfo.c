@@ -125,7 +125,7 @@ int readWaveHeader(
 	return 0;
 }
 
-static int dump8BitWave(FILE * fp, long sizeOfData)
+static int read8BitWaveData(FILE * fp, long sizeOfData)
 {
 	// 8 bit: 0 - 255, mute = 128
 	unsigned char data[2];
@@ -143,7 +143,7 @@ static int dump8BitWave(FILE * fp, long sizeOfData)
 	return 0;
 }
 
-static int dump16BitWave(FILE * fp, long sizeOfData)
+static int read16BitWaveData(FILE * fp, long sizeOfData)
 {
 	// 16 bit: -32768 - +32767, mute = 0
 	short data[2];
@@ -161,7 +161,7 @@ static int dump16BitWave(FILE * fp, long sizeOfData)
 	return 0;
 }
 
-static int dumpWave(
+static int readWaveData(
 	FILE * fp,
 	long posOfData,
 	long sizeOfData,
@@ -172,9 +172,9 @@ static int dumpWave(
 	switch (bytesPerChannel)
 	{
 	case 1:
-		return dump8BitWave(fp, sizeOfData);
+		return read8BitWaveData(fp, sizeOfData);
 	case 2:
-		return dump16BitWave(fp, sizeOfData);
+		return read16BitWaveData(fp, sizeOfData);
 	default:
 		return -1;
 	}
@@ -197,7 +197,7 @@ int dumpWaveData(
 		return -1;
 	}
 
-	if (dumpWave(fp, posOfData, sizeOfData, bytesPerChannel) != 0)
+	if (readWaveData(fp, posOfData, sizeOfData, bytesPerChannel) != 0)
 	{
 		fprintf(stderr, "Cannot read Wave audio contents\n");
 		

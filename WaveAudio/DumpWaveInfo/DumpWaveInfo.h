@@ -50,10 +50,10 @@ int readWaveHeader(
 	long * posOfData,
 	long * sizeOfData);
 
-static int dump8BitWave(FILE * fp, long sizeOfData);
-static int dump16BitWave(FILE * fp, long sizeOfData);
+static int read8BitWaveData(FILE * fp, long sizeOfData);
+static int read16BitWaveData(FILE * fp, long sizeOfData);
 
-static int dumpWave(
+static int readWaveData(
 	FILE * fp,
 	long posOfData,
 	long sizeOfData,
